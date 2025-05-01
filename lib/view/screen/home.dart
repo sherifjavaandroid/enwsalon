@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../core/constant/routes.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -42,7 +44,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
     Get.put(HomeScreenControllerImp());
     return Scaffold(
       backgroundColor: Colors.white,
-      // body: _pages[controller.currentVal],
       body: GetBuilder<HomeScreenControllerImp>(
         builder: (controller) {
           return controller.pages[controller.currentPage];
@@ -50,64 +51,115 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       ),
       bottomNavigationBar: GetBuilder<HomeScreenControllerImp>(
         builder: (controller) {
-          return BottomNavigationBar(
-            backgroundColor: AppColor.backgroundColor,
-            currentIndex: controller.currentPage,
-            type: BottomNavigationBarType.shifting,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            selectedLabelStyle: TextStyle(
-                color:
-                AppColor.backgroundicons, // Keeps label color same for all
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600),
-            unselectedLabelStyle: TextStyle(
-                color:
-                AppColor.backgroundicons, // Keeps label color same for all
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600),
-            selectedItemColor:
-            AppColor.backgroundicons, // Changes color of selected icon only
-            unselectedItemColor: AppColor.backgroundicons,
-            items: [
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  const AssetImage(AppImageAsset.home),
-                  color: controller.currentPage == 0
-                      ? AppColor.selectedColor // Changes selected icon color
-                      : AppColor.backgroundicons, // Keeps others the same
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, -2),
                 ),
-                label: 'Home'.tr,
+              ],
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.notifications_active),
-              //   label: 'Notification',
-              // ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  const AssetImage(AppImageAsset.booking),
-                  color: controller.currentPage == 1
-                      ? AppColor.selectedColor // Changes selected icon color
-                      : AppColor.backgroundicons, // Keeps others the same
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
+              ),
+              child: BottomNavigationBar(
+                backgroundColor: Colors.white,
+                currentIndex: controller.currentPage,
+                type: BottomNavigationBarType.fixed,
+                showSelectedLabels: true,
+                showUnselectedLabels: true,
+                selectedLabelStyle: TextStyle(
+                  color: AppColor.backgroundicons,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w600,
                 ),
-                label: 'Booking'.tr,
-              ),
-              BottomNavigationBarItem(
-                icon: ImageIcon(
-                  const AssetImage(AppImageAsset.bottomprofile),
-                  color: controller.currentPage == 2
-                      ? AppColor.selectedColor // Changes selected icon color
-                      : AppColor.backgroundicons, // Keeps others the same
+                unselectedLabelStyle: TextStyle(
+                  color: AppColor.backgroundicons,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
                 ),
-                label: 'Profile'.tr,
+                selectedItemColor: AppColor.selectedColor,
+                unselectedItemColor: Colors.grey.shade600,
+                elevation: 0,
+                items: [
+                  _buildBottomNavItem(
+                    icon: AppImageAsset.home,
+                    label: 'Home'.tr,
+                    isSelected: controller.currentPage == 0,
+                  ),
+                  _buildBottomNavItem(
+                    icon: AppImageAsset.booking,
+                    label: 'Booking'.tr,
+                    isSelected: controller.currentPage == 1,
+                  ),
+                  _buildBottomNavItem(
+                    icon: AppImageAsset.bottomprofile,
+                    label: 'Profile'.tr,
+                    isSelected: controller.currentPage == 2,
+                  ),
+                ],
+                onTap: (index) {
+                  controller.changePage(index);
+                },
               ),
-            ],
-            onTap: (index) {
-              controller.changePage(index);
-            },
+            ),
           );
         },
       ),
+      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  BottomNavigationBarItem _buildBottomNavItem({
+    required String icon,
+    required String label,
+    required bool isSelected,
+  }) {
+    return BottomNavigationBarItem(
+      icon: Padding(
+        padding: EdgeInsets.only(bottom: 5.h),
+        child: ImageIcon(
+          AssetImage(icon),
+          color: isSelected ? AppColor.selectedColor : Colors.grey.shade600,
+          size: 24.r,
+        ),
+      ),
+      label: label,
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    return GetBuilder<HomeScreenControllerImp>(
+      builder: (controller) {
+        return Container(
+          height: 60.r,
+          width: 60.r,
+          margin: EdgeInsets.only(top: 30.h),
+          child: FloatingActionButton(
+            elevation: 4,
+            backgroundColor: AppColor.selectedColor,
+            onPressed: () {
+              // Handle FAB tap - could be used for quick booking or search
+              Get.toNamed(AppRoute.enhancedSearch);
+            },
+            child: Icon(
+              Icons.search,
+              size: 30.r,
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
     );
   }
 }

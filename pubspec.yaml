@@ -16,7 +16,7 @@ dependencies:
   dio: ^5.8.0+1
   dots_indicator: ^3.0.0
 
-
+  url_launcher:
 
 
   # Added for QR code and sharing

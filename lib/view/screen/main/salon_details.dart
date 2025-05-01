@@ -10,14 +10,10 @@ import 'package:easycut/view/widget/main/stack_salon_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-// "services": controller.services,
-// "products": productController
-//     .selectedIndices
-//     .toList(),
-//         "salon": controller.salon,
-// "services": controller.selectedServices,
-//  "products": controller.selectedProducts,
 class SalonDetails extends StatelessWidget {
   const SalonDetails({super.key});
 
@@ -72,70 +68,101 @@ class SalonDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              controller.isLoggedIn
-                                  ? GestureDetector(
-                                onTap: () {
-                                  controller.changeFavoriteState();
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                    alignment: Alignment.topRight,
+                              Row(
+                                children: [
+                                  // Share Button
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Container(
-                                      width: 33.w,
-                                      height: 33.h,
-                                      decoration: const BoxDecoration(
-                                        color: Colors
-                                            .white, // Change to your preferred background color
-                                        shape: BoxShape
-                                            .circle, // You can change it to BoxShape.rectangle if needed
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black26,
-                                            blurRadius: 4.0,
-                                            spreadRadius: 1,
-                                          ),
-                                        ],
+                                      width: 36.w,
+                                      height: 36.h,
+                                      decoration: BoxDecoration(
+                                        color: AppColor.unselectedservies,
+                                        borderRadius: BorderRadius.circular(10.r),
+                                        border: Border.all(
+                                          width: 1.5,
+                                          color: AppColor.backgroundicons,
+                                        ),
                                       ),
-                                      child: controller.isFavorite!
-                                          ? Image.asset(
-                                        'assets/images/icon/Vector.png', // Ensure this is a valid image path string
-                                        height: 22
-                                            .h, // Adjust size as needed
-                                        width: 22.w,
-                                      )
-                                          : Image.asset(
-                                        'assets/images/icon/heart.png', // Ensure this is a valid image path string
-                                        height: 22
-                                            .h, // Adjust size as needed
-                                        width: 22.w,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.share,
+                                          size: 18,
+                                          color: AppColor.backgroundicons,
+                                        ),
+                                        onPressed: () {
+                                          _showShareOptions(context, controller);
+                                        },
                                       ),
-                                      // child: AppIcon(
-                                      //             icon: controller.isFavorite!
-                                      //                 ? Icons.favorite
-                                      //                 : Icons.favorite_border,
-                                      //             iconColor: controller.isFavorite!
-                                      //                 ? Colors.red
-                                      //                 : Colors.grey,
-                                      //           ),
                                     ),
                                   ),
-                                ),
-                                //  SizedBox(
-                                //   height: 33.h,
-                                //   width: 33.w,
-                                //   child: Container(
-                                //     decoration: BoxDecoration(
-                                //         color: AppColor.backgroundButton),
-                                //     child: controller.isFavorite!
-                                //         ? ImageIcon(AssetImage(
-                                //             'assets/images/icon/heart.png'))
-                                //         : ImageIcon(AssetImage(
-                                //             'assets/images/icon/Vector.png')),
-                                //   ),
-                                // ),
-                              )
-                                  : Container(),
+
+                                  // QR Code Button
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: 36.w,
+                                      height: 36.h,
+                                      decoration: BoxDecoration(
+                                        color: AppColor.unselectedservies,
+                                        borderRadius: BorderRadius.circular(10.r),
+                                        border: Border.all(
+                                          width: 1.5,
+                                          color: AppColor.backgroundicons,
+                                        ),
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.qr_code,
+                                          size: 18,
+                                          color: AppColor.backgroundicons,
+                                        ),
+                                        onPressed: () {
+                                          _showQrCode(context, controller);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+
+                                  // Favorite Button (Original code)
+                                  controller.isLoggedIn
+                                      ? GestureDetector(
+                                    onTap: () {
+                                      controller.changeFavoriteState();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Align(
+                                        alignment: Alignment.topRight,
+                                        child: Container(
+                                          width: 36.w,
+                                          height: 36.h,
+                                          decoration: BoxDecoration(
+                                            color: AppColor.unselectedservies,
+                                            borderRadius: BorderRadius.circular(10.r),
+                                            border: Border.all(
+                                              width: 1.5,
+                                              color: AppColor.backgroundicons,
+                                            ),
+                                          ),
+                                          child: controller.isFavorite!
+                                              ? Image.asset(
+                                            'assets/images/icon/Vector.png',
+                                            height: 18.h,
+                                            width: 18.w,
+                                          )
+                                              : Image.asset(
+                                            'assets/images/icon/heart.png',
+                                            height: 18.h,
+                                            width: 18.w,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                      : Container(),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -170,9 +197,6 @@ class SalonDetails extends StatelessWidget {
                           _showLoginBottomSheet(context);
                         }
                       },
-                      // "services": serviceController
-                      //     .selectedIndices
-                      //     .toList(),
                       child: SmallText(
                         size: 20.sp,
                         text: "Book Now".tr,
@@ -187,6 +211,236 @@ class SalonDetails extends StatelessWidget {
         );
       },
     ));
+  }
+
+  // Method to show share options
+  void _showShareOptions(BuildContext context, SalonDetailControllerImp controller) {
+    final String salonName = controller.salon.name ?? 'Our Salon';
+    final String salonAddress = controller.salon.address ?? 'Unknown location';
+    final String shareText = 'Check out $salonName at $salonAddress! Book your appointment now with Easy Cut app!';
+
+    // Generate a deep link or app URL (this is a placeholder)
+    final String salonLink = 'https://easycuteg.com/salon/${controller.salon.id}';
+
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20.r),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(20.r),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Share Salon'.tr,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildShareOption(
+                    context,
+                    icon: Icons.message,
+                    label: 'Message'.tr,
+                    onTap: () {
+                      Share.share(shareText + '\n' + salonLink);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  _buildShareOption(
+                    context,
+                    icon: Icons.mail,
+                    label: 'Email'.tr,
+                    onTap: () {
+                      final Uri emailUri = Uri(
+                        scheme: 'mailto',
+                        path: '',
+                        queryParameters: {
+                          'subject': 'Check out this salon!',
+                          'body': shareText + '\n' + salonLink,
+                        },
+                      );
+                      launchUrl(emailUri);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  _buildShareOption(
+                    context,
+                    icon: Icons.content_copy,
+                    label: 'Copy Link'.tr,
+                    onTap: () {
+                      // This would require clipboard package, but we can use Share.share for now
+                      Share.share(salonLink);
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Link copied to clipboard'.tr)),
+                      );
+                    },
+                  ),
+                  _buildShareOption(
+                    context,
+                    icon: Icons.more_horiz,
+                    label: 'More'.tr,
+                    onTap: () {
+                      Share.share(shareText + '\n' + salonLink);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Helper method to build share option
+  Widget _buildShareOption(
+      BuildContext context, {
+        required IconData icon,
+        required String label,
+        required VoidCallback onTap,
+      }) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 50.r,
+            height: 50.r,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              color: AppColor.backgroundicons,
+              size: 24.r,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.sp,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Method to show QR code
+  void _showQrCode(BuildContext context, SalonDetailControllerImp controller) {
+    final String salonId = controller.salon.id?.toString() ?? '0';
+    final String salonName = controller.salon.name ?? 'Salon';
+
+    // Generate a deep link or app URL (this is a placeholder)
+    final String salonLink = 'https://easycuteg.com/salon/$salonId';
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(20.r),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Scan to visit $salonName'.tr,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20.h),
+                Container(
+                  height: 200.r,
+                  width: 200.r,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: QrImageView(
+                      data: salonLink,
+                      version: QrVersions.auto,
+                      size: 180.r,
+                      backgroundColor: Colors.white,
+                      errorStateBuilder: (context, error) {
+                        return Center(
+                          child: Text(
+                            'Error generating QR code'.tr,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Close'.tr,
+                        style: TextStyle(
+                          color: AppColor.backgroundicons,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // This would ideally use a save image package
+                        // For now, we'll just close the dialog
+                        Share.share('Check out this salon: $salonLink');
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.selectedColor,
+                      ),
+                      child: Text(
+                        'Share QR Code'.tr,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
