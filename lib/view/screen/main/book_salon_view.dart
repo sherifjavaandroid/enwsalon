@@ -106,7 +106,7 @@ class BookSalonView extends StatelessWidget {
                                     height: 85.h,
                                     decoration: BoxDecoration(
                                       borderRadius:
-                                          BorderRadius.circular(190.r),
+                                      BorderRadius.circular(190.r),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.r),
@@ -118,7 +118,7 @@ class BookSalonView extends StatelessWidget {
                                   ),
                                   SizedBox(
                                       width:
-                                          22.w), // Space between image and text
+                                      22.w), // Space between image and text
 
                                   // Service Name, Price, and Time
                                   SizedBox(
@@ -126,26 +126,26 @@ class BookSalonView extends StatelessWidget {
                                     height: 78.h,
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         BigText(
                                           maxLines: 1,
                                           text:
-                                              controller.services[index].name!,
+                                          controller.services[index].name!,
                                           size: 18.sp,
                                           color: AppColor.backgroundicons,
                                         ),
                                         SmallText(
                                           text:
-                                              "${'Time'.tr}: ${controller.services[index].time ?? 'N/A'} ${'min'.tr}",
+                                          "${'Time'.tr}: ${controller.services[index].time ?? 'N/A'} ${'min'.tr}",
                                           color: AppColor.backgroundicons,
                                           size: Dimensions.font16.sp,
                                         ),
                                         SmallText(
                                           text:
-                                              "${controller.services[index].price!} \$",
+                                          "${controller.services[index].price!} \$",
                                           color: AppColor.backgroundicons,
                                           size: Dimensions.font16.sp,
                                         ),
@@ -254,13 +254,13 @@ class BookSalonView extends StatelessWidget {
                               ),
                               boxShadow: isSelected
                                   ? [
-                                      BoxShadow(
-                                        color: AppColor.selectedColor
-                                            .withOpacity(0.3),
-                                        blurRadius: 8,
-                                        offset: Offset(0, 4),
-                                      )
-                                    ]
+                                BoxShadow(
+                                  color: AppColor.selectedColor
+                                      .withOpacity(0.3),
+                                  blurRadius: 8,
+                                  offset: Offset(0, 4),
+                                )
+                              ]
                                   : [],
                               color: isSelected
                                   ? AppColor.selectedColor

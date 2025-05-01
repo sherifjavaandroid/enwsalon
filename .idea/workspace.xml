@@ -6,24 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="278d9014-9b66-4bba-b02c-1dc34ffae386" name="Changes" comment="fix search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/booking_screen_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/home/booking_screen_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/home_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/home/home_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/profile_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/home/profile_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/profile/profile_update_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/profile/profile_update_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/search/salon_search_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/controller/search/salon_search_controller.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/class/crud.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/class/crud.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/functions/valid_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/functions/valid_input.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/home/home_data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/data_source/remote/home/home_data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/salon_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/model/salon_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/searchsalon.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/model/searchsalon.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/signup.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/auth/signup.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/booking/booking_details_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/booking/booking_details_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/booking.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/booking.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/profile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/main/book_salon_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/main/book_salon_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/main/salon_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/main/salon_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/main/success_booking.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/main/success_booking.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,13 +51,14 @@
     "cidr.known.project.marker": "true",
     "dart.analysis.tool.window.visible": "false",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "E:/gtm/salonfuckingday/lib/core",
+    "last_opened_file_path": "E:/gtm/salonfuckingday/lib/view",
     "settings.editor.selected.configurable": "flutter.settings",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\gtm\salonfuckingday\lib\view" />
       <recent name="E:\gtm\salonfuckingday\lib\core" />
       <recent name="E:\gtm\salonfuckingday\lib\view\screen\home" />
       <recent name="E:\gtm\salonfuckingday\lib\helper" />
@@ -113,7 +99,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746116521077</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix search">
+      <option name="closed" value="true" />
+      <created>1746127523551</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746127523551</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

@@ -74,67 +74,67 @@ class SalonDetails extends StatelessWidget {
                               ),
                               controller.isLoggedIn
                                   ? GestureDetector(
-                                      onTap: () {
-                                        controller.changeFavoriteState();
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: Container(
-                                            width: 33.w,
-                                            height: 33.h,
-                                            decoration: const BoxDecoration(
-                                              color: Colors
-                                                  .white, // Change to your preferred background color
-                                              shape: BoxShape
-                                                  .circle, // You can change it to BoxShape.rectangle if needed
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black26,
-                                                  blurRadius: 4.0,
-                                                  spreadRadius: 1,
-                                                ),
-                                              ],
-                                            ),
-                                            child: controller.isFavorite!
-                                                ? Image.asset(
-                                                    'assets/images/icon/Vector.png', // Ensure this is a valid image path string
-                                                    height: 22
-                                                        .h, // Adjust size as needed
-                                                    width: 22.w,
-                                                  )
-                                                : Image.asset(
-                                                    'assets/images/icon/heart.png', // Ensure this is a valid image path string
-                                                    height: 22
-                                                        .h, // Adjust size as needed
-                                                    width: 22.w,
-                                                  ),
-                                            // child: AppIcon(
-                                            //             icon: controller.isFavorite!
-                                            //                 ? Icons.favorite
-                                            //                 : Icons.favorite_border,
-                                            //             iconColor: controller.isFavorite!
-                                            //                 ? Colors.red
-                                            //                 : Colors.grey,
-                                            //           ),
+                                onTap: () {
+                                  controller.changeFavoriteState();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Align(
+                                    alignment: Alignment.topRight,
+                                    child: Container(
+                                      width: 33.w,
+                                      height: 33.h,
+                                      decoration: const BoxDecoration(
+                                        color: Colors
+                                            .white, // Change to your preferred background color
+                                        shape: BoxShape
+                                            .circle, // You can change it to BoxShape.rectangle if needed
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            blurRadius: 4.0,
+                                            spreadRadius: 1,
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                      //  SizedBox(
-                                      //   height: 33.h,
-                                      //   width: 33.w,
-                                      //   child: Container(
-                                      //     decoration: BoxDecoration(
-                                      //         color: AppColor.backgroundButton),
-                                      //     child: controller.isFavorite!
-                                      //         ? ImageIcon(AssetImage(
-                                      //             'assets/images/icon/heart.png'))
-                                      //         : ImageIcon(AssetImage(
-                                      //             'assets/images/icon/Vector.png')),
-                                      //   ),
-                                      // ),
-                                    )
+                                      child: controller.isFavorite!
+                                          ? Image.asset(
+                                        'assets/images/icon/Vector.png', // Ensure this is a valid image path string
+                                        height: 22
+                                            .h, // Adjust size as needed
+                                        width: 22.w,
+                                      )
+                                          : Image.asset(
+                                        'assets/images/icon/heart.png', // Ensure this is a valid image path string
+                                        height: 22
+                                            .h, // Adjust size as needed
+                                        width: 22.w,
+                                      ),
+                                      // child: AppIcon(
+                                      //             icon: controller.isFavorite!
+                                      //                 ? Icons.favorite
+                                      //                 : Icons.favorite_border,
+                                      //             iconColor: controller.isFavorite!
+                                      //                 ? Colors.red
+                                      //                 : Colors.grey,
+                                      //           ),
+                                    ),
+                                  ),
+                                ),
+                                //  SizedBox(
+                                //   height: 33.h,
+                                //   width: 33.w,
+                                //   child: Container(
+                                //     decoration: BoxDecoration(
+                                //         color: AppColor.backgroundButton),
+                                //     child: controller.isFavorite!
+                                //         ? ImageIcon(AssetImage(
+                                //             'assets/images/icon/heart.png'))
+                                //         : ImageIcon(AssetImage(
+                                //             'assets/images/icon/Vector.png')),
+                                //   ),
+                                // ),
+                              )
                                   : Container(),
                             ],
                           ),
@@ -152,7 +152,7 @@ class SalonDetails extends StatelessWidget {
                     width: 406.w,
                     height: 51.h,
                     margin:
-                        const EdgeInsets.only(left: 17, bottom: 10, right: 17),
+                    const EdgeInsets.only(left: 17, bottom: 10, right: 17),
                     decoration: BoxDecoration(
                       color: hasSelection
                           ? AppColor.selectedColor

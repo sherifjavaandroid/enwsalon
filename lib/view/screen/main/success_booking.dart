@@ -140,7 +140,7 @@ class SuccessBokking extends StatelessWidget {
         ),
         ConstrainedBox(
           constraints:
-              BoxConstraints(maxWidth: 110.w), // Limit width to 150 pixels((
+          BoxConstraints(maxWidth: 110.w), // Limit width to 150 pixels((
           child: SmallText(
             text: value,
             color: AppColor.backgroundicons,
