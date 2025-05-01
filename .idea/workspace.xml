@@ -5,180 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="278d9014-9b66-4bba-b02c-1dc34ffae386" name="Changes" comment="fix">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/auth/activate_code_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/auth/forget_password_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/auth/login_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/auth/reset_password_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/auth/signup_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/auth/verify_code_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/book_rate_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/booking_cancel_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/booking_detail_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/booking_screen_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/home_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/home_screen_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/profile_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/profile_edit_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/reschadle_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/salon_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/home/salon_rates_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/main/booking_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/main/salon_detail_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/main/success_booking_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/onboarding_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/controller/test_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/class/Untitled-1.jsonc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/class/crud.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/class/handling_data_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/class/status_request.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constant/app_theme.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constant/color.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constant/dimensions.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constant/image_asset.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constant/routes.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/functions/alert_exit.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/functions/check_internet.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/functions/handling_data_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/functions/valid_input.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/localization/change_local.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/localization/lang_ar.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/localization/lang_de.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/localization/lang_en.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/localization/translation.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/location_permission_helper.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/location_services.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/middleware/my_middleware.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/services/services.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/shared/widgets/big_text.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/shared/widgets/small_text.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/auth/activate_code.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/auth/login.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/auth/signup.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/forget_password/check_email.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/forget_password/reset_password.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/forget_password/verify_code.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/home/book_op.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/home/booking_user_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/home/home_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/home/profile_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/home/profile_edit_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/main/booking_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/main/salon_detail_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/main/service_booking_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/remote/test_data.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/data_source/static/static.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/available_times.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/booking_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/comment_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/favorite_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/feeddbackrates.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/home_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/onboarding_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/products_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/profile_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/salon_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/salonrates.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/searchsalon.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/services_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/model/state_model.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/extensions/salon_rating_extension.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/extensions/salon_search_extension.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/auth/change_password_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/auth/otp_verification_code_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/auth/otp_verification_password_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/auth/password_changed_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/auth/register_email_password_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/booking/booking_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/home_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/main/book_salon_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/main/main_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/main/salon_details_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/main/show_salon_booking_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/notification/notification_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/profile/profile_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/app_icon.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/expandable_text_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/header_main_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/icon_and_text.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/newest_salon_item.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/newest_text.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/show_salon_card.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/widgets/sliding_popular_salons.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/search/controller/carousel_controller_x.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/firebase_options.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/helper/binding.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/helper/qrcode_helper.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/linkapi.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/notes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/routes.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/activate_code.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/forget_password/forgot_password.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/forget_password/reset_password.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/forget_password/verify_code.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/login.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/signup.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/auth/success.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/booking.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/booking_cancel.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/booking_details.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/booking_rate.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/lauguage_profile.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/local_controller_profile.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/main.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/notification.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/profile.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/profile_edit.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/reschadule_booking.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/salonsearchdelegate.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/search_salon.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/language.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/main/book_salon_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/main/salon_details.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/main/success_booking.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/onboarding.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/splashScreen/splash_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/splashScreen/splash_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/test_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/auth/custom_buttom_image.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/auth/custom_buttom_search.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/auth/custom_button_auth.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/auth/custom_text_form_auth.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/auth/header_auth.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/auth/register_input_field.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/exitdialog.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/app_icon.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/cart_profile.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/days_choice_booking.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/expandable_text_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/guest_NewestSalonItem.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/header_main_view.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/icon_and_text.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/location_indicator.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/newest_salon_item.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/newest_text.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/salon_classification_filter_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/salon_rate.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/show_salon_card.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/sliding_popular_salons.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/language/custom_button_lang.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/main/about_salon.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/main/show_comments_salon.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/main/show_products_salon.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/main/stack_image_detail.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/main/stack_salon_details.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/main_circle_image.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/onboarding/custom_button.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/onboarding/custom_slider.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/onboarding/dots_controller.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/profile/about_profile.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/profile/edit_profile_button.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/profile/location_settings.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/profile/profile_favorite_salons.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/widget/salon_share.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/booking.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/booking.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/widget/home/cart_profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/widget/home/cart_profile.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,6 +80,15 @@
       <option name="presentableId" value="Default" />
       <updated>1746054462628</updated>
     </task>
+    <task id="LOCAL-00001" summary="fix">
+      <option name="closed" value="true" />
+      <created>1746115204647</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746115204647</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

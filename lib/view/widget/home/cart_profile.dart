@@ -14,12 +14,14 @@ class CartProfile extends StatelessWidget {
   final String userName;
   final String userImage;
   final String userEmail;
+  final VoidCallback? onEditPressed;
   final void Function() logout;
   const CartProfile({
     super.key,
     required this.userName,
     required this.userImage,
     required this.userEmail,
+    this.onEditPressed,
     required this.logout,
   });
 
@@ -45,109 +47,17 @@ class CartProfile extends StatelessWidget {
                     Column(
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                BigText(
-                                  text: userName,
-                                  size: 24,
-                                ),
-                                SizedBox(
-                                  width: 190,
-                                  child: Text(
-                                    userEmail,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  // child: SmallText(
-                                  //   text: userEmail,
-                                  //   size: 16,
-                                  // ),
-                                ),
-                              ],
-                            ),
-                            // GestureDetector(
-                            //   onTap: (logout),
-                            //   child: Image.asset(
-                            //     'assets/images/icon/setting2.png',
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            // ),
-                            GestureDetector(
-                              onTap: showProfileDialog,
-                              child: Image.asset(
-                                'assets/images/icon/setting2.png',
-                                fit: BoxFit.cover,
+                            if (onEditPressed != null)
+                              IconButton(
+                                icon: Icon(Icons.edit, color: AppColor.backgroundicons),
+                                onPressed: onEditPressed,
                               ),
+                            IconButton(
+                              icon: Icon(Icons.logout, color: Colors.red),
+                              onPressed: logout,
                             ),
-
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     Get.defaultDialog(
-                            //       title: "Profile Actions",
-                            //       content: Container(
-                            //         height: 167,
-                            //         width: 284,
-                            //         decoration: BoxDecoration(
-                            //           color: AppColor.backgroundButton,
-                            //         ),
-                            //         child: Column(
-                            //           mainAxisSize: MainAxisSize.min,
-                            //           children: [
-                            //             ElevatedButton.icon(
-                            //               iconAlignment: IconAlignment.end,
-                            //               onPressed: () {
-                            //                 Get.back();
-                            //                 ProfileControllerImp().logout();
-                            //               },
-                            //               label: const Text("Logout",
-                            //                   style: TextStyle(
-                            //                       color: Colors.black)),
-                            //               icon: const Icon(Icons.logout,
-                            //                   color: AppColor.primaryColor),
-                            //               style: ElevatedButton.styleFrom(
-                            //                 backgroundColor:
-                            //                     AppColor.backgroundButton,
-                            //                 elevation: 1,
-                            //                 side: const BorderSide(
-                            //                   // Added border
-                            //                   color: AppColor
-                            //                       .backgroundicons2, // Hex color for the border
-                            //                   width: 1, // 1px solid border
-                            //                 ),
-                            //                 shape: RoundedRectangleBorder(
-                            //                   borderRadius: BorderRadius.circular(
-                            //                       10), // Optional: Adjust corner radius
-                            //                 ),
-                            //               ),
-                            //             ),
-                            //             const SizedBox(height: 10),
-                            //             TextButton(
-                            //               onPressed: () {
-                            //                 // Get.back();
-                            //                 // ProfileControllerImp()
-                            //                 //     .deleteAccount();
-                            //               },
-                            //               child: const Text(
-                            //                 "Delete Account",
-                            //                 style: TextStyle(
-                            //                     color: Colors.red,
-                            //                     fontWeight: FontWeight.bold),
-                            //               ),
-                            //             ),
-                            //           ],
-                            //         ),
-                            //       ),
-                            //     );
-                            //   },
-                            //   child: Image.asset(
-                            //     'assets/images/icon/setting2.png',
-                            //     fit: BoxFit.cover,
-                            //   ),
-                            // ),
                           ],
                         ),
                       ],

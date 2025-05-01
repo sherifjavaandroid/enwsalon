@@ -57,11 +57,10 @@ class MainView extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: Dimensions.height10),
+                  // Replace the existing search button with this:
                   CustomButtonSearch(
                     onPressed: () {
-                      // showSearch(
-                      //     context: context, delegate: SalonSearchDelegate());
-                      Get.offNamed(AppRoute.searchSalon);
+                      Get.toNamed(AppRoute.enhancedSearch);
                     },
                     prefixIcon: AppImageAsset.search,
                     hintText: "Search".tr,

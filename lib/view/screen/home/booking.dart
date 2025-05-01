@@ -164,149 +164,91 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
                             itemBuilder: (context, index) {
                               final booking = controller.bookings[index];
 
+                              // Inside your booking card, after the status indicator:
+// Find where you're building each booking item
                               return SizedBox(
                                 height: 260.h,
                                 width: 294.w,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
                                   child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    elevation: 5,
-                                    // shadowColor: Colors.grey.withOpacity(0.3),
+                                    // Existing card content
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(
-                                          height: 126.h,
-                                          width: 344.w,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(
-                                                    Dimensions.radius5)),
-                                            child: booking.image != null
-                                                ? Image.network(
-                                                    "${AppLink.imageSalons}${booking.image}",
-                                                    fit: BoxFit.cover,
-                                                    loadingBuilder: (context,
-                                                        child,
-                                                        loadingProgress) {
-                                                      if (loadingProgress ==
-                                                          null) {
-                                                        return child;
-                                                      }
-                                                      return const Center(
-                                                        child:
-                                                            CircularProgressIndicator(),
-                                                      );
-                                                    },
-                                                    errorBuilder: (context,
-                                                        error, stackTrace) {
-                                                      return const Center(
-                                                        child: Icon(
-                                                          Icons
-                                                              .image_not_supported,
-                                                          size: 50,
-                                                          color: Colors.grey,
-                                                        ),
-                                                      );
-                                                    },
-                                                  )
-                                                : Center(
-                                                    child: Image.network(
-                                                      'https://th.bing.com/th/id/OIP.U0QLQk1bHABNJk1_J6BCKwAAAA?rs=1&pid=ImgDetMain',
-                                                      errorBuilder: (context,
-                                                          error, stackTrace) {
-                                                        return Text(
-                                                          'Please check your internet connection'
-                                                              .tr,
-                                                          style: const TextStyle(
-                                                              color: Colors.red,
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                          ),
-                                        ),
+                                        // Existing code...
+
+                                        // Add these buttons at the bottom of the card
                                         Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: Dimensions.width10.w),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
                                             children: [
-                                              SizedBox(
-                                                height: 34.h,
-                                                width: 344.w,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    ConstrainedBox(
-                                                      constraints:
-                                                          BoxConstraints(
-                                                              maxWidth: 200.w),
-                                                      child: BigText(
-                                                          text: booking
-                                                              .salonname!),
+                                              // Only show rate button for accepted or completed bookings
+                                              if (booking.approve == "1" || booking.approve == "4")
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Get.toNamed(
+                                                      AppRoute.detailedRating,
+                                                      arguments: {"bookingId": booking.id},
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                                                    decoration: BoxDecoration(
+                                                      color: AppColor.selectedColor.withOpacity(0.2),
+                                                      borderRadius: BorderRadius.circular(5),
                                                     ),
-                                                    _buildStatusIndicator(
-                                                      booking.approve,
-                                                      imagePath:
-                                                          'assets/images/icon/lock.png',
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 30.h,
-                                                width: 344.w,
-                                                child: _buildInfoRow(
-                                                  "".tr,
-                                                  booking.phone ?? 'N/A',
-                                                  'assets/images/icon/call-calling.png',
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 30.h,
-                                                width: 344.w,
-                                                child: Row(
-                                                  children: [
-                                                    _buildInfoRow(
-                                                      "".tr,
-                                                      booking.day ?? 'N/A',
-                                                      'assets/images/icon/calendar.png',
-                                                    ),
-                                                    SizedBox(
-                                                        width: Dimensions
-                                                            .width10.w),
-                                                    _buildInfoRow(
-                                                      "".tr,
-                                                      booking.time ?? 'N/A',
-                                                      'assets/images/icon/clock.png',
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  SizedBox(
-                                                    height: 30.h,
-                                                    child: _buildInfoRow(
-                                                      "".tr,
-                                                      "${booking.total ?? '0'} \$",
-                                                      'assets/images/icon/dollar-square.png',
+                                                    child: Row(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.star,
+                                                          size: 16.r,
+                                                          color: AppColor.selectedColor,
+                                                        ),
+                                                        SizedBox(width: 4.w),
+                                                        SmallText(
+                                                          text: "Rate".tr,
+                                                          color: AppColor.selectedColor,
+                                                          size: 12.sp,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
+                                                ),
+                                              SizedBox(width: 8.w),
+                                              // Add details button for all bookings
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                    AppRoute.bookingDetails,
+                                                    arguments: {"bookingId": booking.id},
+                                                  );
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey.withOpacity(0.2),
+                                                    borderRadius: BorderRadius.circular(5),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.info_outline,
+                                                        size: 16.r,
+                                                        color: AppColor.backgroundicons,
+                                                      ),
+                                                      SizedBox(width: 4.w),
+                                                      SmallText(
+                                                        text: "Details".tr,
+                                                        color: AppColor.backgroundicons,
+                                                        size: 12.sp,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             ],
                                           ),

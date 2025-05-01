@@ -35,6 +35,7 @@ class ProfileView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Find the CartProfile widget in profile.dart
                     CartProfile(
                       userName: controller.profile.name ?? "",
                       userImage: controller.profile.image != null
@@ -43,6 +44,10 @@ class ProfileView extends StatelessWidget {
                       userEmail: controller.profile.email ?? "",
                       logout: () {
                         controller.logout();
+                      },
+                      // Add this parameter to enable editing profile
+                      onEditPressed: () {
+                        Get.toNamed(AppRoute.profileUpdate);
                       },
                     ),
 
