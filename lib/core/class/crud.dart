@@ -10,10 +10,16 @@ import 'package:path/path.dart';
 import 'status_request.dart';
 
 class Crud {
+  // Method for GET request
   Future<Either<StatusRequest, dynamic>> getData(String linkUrl) async {
     try {
+      Logger().i('GET Request: $linkUrl'); // Log the request URL
       if (await checkInternet()) {
         var response = await http.get(Uri.parse(linkUrl));
+
+        // Log the response details
+        Logger().i('Response Status Code: ${response.statusCode}');
+        Logger().i('Response Body: ${response.body}');
 
         if (response.statusCode == 200) {
           try {
@@ -45,16 +51,23 @@ class Crud {
     }
   }
 
+  // Method for POST request (without file)
   Future<Either<StatusRequest, Map<String, dynamic>>> postData(
       String linkUrl, Map<String, dynamic> data) async {
     try {
+      Logger().i('POST Request: $linkUrl'); // Log the request URL
+      Logger().i('Request Body: $data'); // Log the request body
       if (await checkInternet()) {
         var response = await http.post(
           Uri.parse(linkUrl),
           body: data,
         );
 
+        // Log the response details
         Logger().i("Raw Response: ${response.body}"); // Debugging
+
+        Logger().i('Response Status Code: ${response.statusCode}');
+        Logger().i('Response Body: ${response.body}');
 
         if (response.statusCode == 200 || response.statusCode == 201) {
           try {
@@ -67,24 +80,16 @@ class Crud {
 
             Logger().i('Decoded Response: $responseBody');
 
-            // Handle 'salon' key safely
-            if (responseBody.containsKey('salon') &&
-                responseBody['salon'] != null &&
-                responseBody['salon'] == false) {
-              Logger().w('No salons found for the query.');
+            // Ensure 'status' is a string and valid
+            final status = responseBody['status'];
+            final message = responseBody['message'];
+
+            if (status == null || status != 'success') {
+              Logger().e("Error: Status is not success. Message: $message");
               return const Left(StatusRequest.serverFailure);
             }
 
-            // Handle 'status' safely
-            final dynamic status = responseBody['status'];
-            final dynamic message = responseBody['message'];
-
-            if (status == null || status is! String || message != null) {
-              Logger().d(
-                  "Error: 'status' is null or not a String. Message: ${message ?? 'No message available'}");
-              return const Left(StatusRequest.success);
-            }
-
+            // If 'status' is success, return the response body
             return Right(responseBody);
           } catch (e) {
             Logger().e('Error decoding response: $e');
@@ -98,18 +103,21 @@ class Crud {
         Logger().e('No internet connection');
         return const Left(StatusRequest.offlineFailure);
       }
-    } catch (e) {
-      Logger().e('Exception in postData: $e');
+    } catch (_) {
       return const Left(StatusRequest.serverException);
     }
   }
-
+  // Method for POST request (with file upload)
   Future<Either<StatusRequest, Map<String, dynamic>>> postDataWithFile(
-    String linkUrl,
-    Map<String, dynamic> data,
-    File file,
-  ) async {
+      String linkUrl,
+      Map<String, dynamic> data,
+      File file,
+      ) async {
     try {
+      Logger().i('POST Request with File: $linkUrl'); // Log the request URL
+      Logger().i('Request Data: $data'); // Log the data being posted
+      Logger().i('Uploading File: ${file.path}'); // Log the file being uploaded
+
       if (await checkInternet()) {
         var request = http.MultipartRequest(
           "POST",
@@ -131,8 +139,14 @@ class Crud {
         data.forEach((key, value) {
           request.fields[key] = value;
         });
+
         var myRequest = await request.send();
         var response = await http.Response.fromStream(myRequest);
+
+        // Log the response details
+        Logger().i('Response Status Code: ${response.statusCode}');
+        Logger().i('Response Body: ${response.body}');
+
         if (response.statusCode == 200 || response.statusCode == 201) {
           Map<String, dynamic> responseBody = jsonDecode(response.body);
           return Right(responseBody);

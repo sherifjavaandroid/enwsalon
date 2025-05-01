@@ -58,16 +58,16 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             showUnselectedLabels: true,
             selectedLabelStyle: TextStyle(
                 color:
-                    AppColor.backgroundicons, // Keeps label color same for all
+                AppColor.backgroundicons, // Keeps label color same for all
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600),
             unselectedLabelStyle: TextStyle(
                 color:
-                    AppColor.backgroundicons, // Keeps label color same for all
+                AppColor.backgroundicons, // Keeps label color same for all
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600),
             selectedItemColor:
-                AppColor.backgroundicons, // Changes color of selected icon only
+            AppColor.backgroundicons, // Changes color of selected icon only
             unselectedItemColor: AppColor.backgroundicons,
             items: [
               BottomNavigationBarItem(

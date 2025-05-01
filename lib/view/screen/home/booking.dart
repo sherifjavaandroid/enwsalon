@@ -12,6 +12,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../core/class/handling_data_view.dart';
+import '../../../data/model/booking_model.dart';
 
 class BookingView extends StatefulWidget {
   const BookingView({super.key});
@@ -37,28 +38,13 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
     _setupRealTimeUpdates();
   }
 
-  // @override
-  // void dispose() {
-  //   WidgetsBinding.instance.removeObserver(this);
-  //   // Dispose of any listeners or streams related to the controller.
-  //   controller.dispose();
-  //   super.dispose();
-  // }
-
   void _setupRealTimeUpdates() {
-    // Retrieve userId from shared preferences
-    // String? userId = MyServices.sharedPreferences!.getString('userId'); // Make sure MyServices is correctly defined
     dynamic? userId = myServices.sharedPreferences!.getInt('id');
     if (kDebugMode) {
       print(userId);
     }
-    // Check if userId is not null or empty before fetching bookings
 
     controller.fetchBookingsFromApi();
-
-    if (kDebugMode) {
-      print('User ID is not available.');
-    }
   }
 
   bool _hasFetchedData = false;
@@ -88,9 +74,8 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
         body = "Your booking status has been updated.";
     }
 
-    // Create Android notification details
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
+    AndroidNotificationDetails(
       'booking_channel', // Channel ID
       'Booking Status', // Channel Name
       channelDescription: 'Shows updates for booking status',
@@ -107,7 +92,6 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
       android: androidPlatformChannelSpecifics,
     );
 
-    // Show the notification
     await flutterLocalNotificationsPlugin?.show(
       0, // Notification ID (can be unique for each notification)
       title, // Notification title
@@ -116,15 +100,92 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
     );
   }
 
+  // Salon Card for Booking
+  Widget _buildSalonCard(BookingModel booking) {
+    final salon = booking.salon;
+
+    return GestureDetector(
+      onTap: () {
+        // Navigate to BookingDetailsView
+        Get.toNamed(AppRoute.bookingDetails, arguments: {'bookingId': booking.id});
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Salon Image
+            Container(
+              height: 150.h, // Set a fixed height for the image
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12.r),
+                  topRight: Radius.circular(12.r),
+                ),
+                image: DecorationImage(
+                  image: salon?.image != null
+                      ? NetworkImage("${AppLink.imageSalons}${salon!.image}")
+                      : const AssetImage('assets/images/default_salon_image.jpg') as ImageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+
+            // Salon Info
+            Padding(
+              padding: EdgeInsets.all(16.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    salon?.name ?? 'Unknown Salon',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  _buildInfoRow(Icons.phone, salon?.phone ?? 'N/A'),
+                  SizedBox(height: 4.h),
+                  _buildInfoRow(Icons.location_on, salon?.address ?? 'N/A'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Helper method to build info rows
+  Widget _buildInfoRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, size: 16.r, color: Colors.grey),
+        SizedBox(width: 8.w),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.grey[700],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
-        // Prevent stack duplication by pushing only one instance of the home screen.
         Navigator.of(context).pushNamedAndRemoveUntil(
           AppRoute.home,
-          (Route<dynamic> route) => false,
+              (Route<dynamic> route) => false,
         );
         return false;
       },
@@ -149,121 +210,52 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
                   Expanded(
                     child: controller.bookings.isEmpty
                         ? Center(
-                            child: BigText(
-                              // Check if the user is in guest mode
-                              text: myServices.sharedPreferences.getInt('id') ==
-                                      null
-                                  ? "Please login to make a booking."
-                                      .tr // Guest mode prompt
-                                  : "No bookings available"
-                                      .tr, // Standard message for logged-in users with no bookings
-                              color: AppColor.primaryColor,
-                            ),
-                          )
+                      child: BigText(
+                        text: myServices.sharedPreferences.getInt('id') == null
+                            ? "Please login to make a booking."
+                            : "No bookings available",
+                        color: AppColor.primaryColor,
+                      ),
+                    )
                         : ListView.separated(
-                            itemBuilder: (context, index) {
-                              final booking = controller.bookings[index];
+                      itemBuilder: (context, index) {
+                        final booking = controller.bookings[index];
+                        return SizedBox(
+                          height: 260.h,
+                          width: 294.w,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Call the _buildSalonCard method to show salon details
+                                  _buildSalonCard(booking),
 
-                              // Inside your booking card, after the status indicator:
-// Find where you're building each booking item
-                              return SizedBox(
-                                height: 260.h,
-                                width: 294.w,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10, right: 10),
-                                  child: Card(
-                                    // Existing card content
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        // Existing code...
-
-                                        // Add these buttons at the bottom of the card
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              // Only show rate button for accepted or completed bookings
-                                              if (booking.approve == "1" || booking.approve == "4")
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Get.toNamed(
-                                                      AppRoute.detailedRating,
-                                                      arguments: {"bookingId": booking.id},
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                                                    decoration: BoxDecoration(
-                                                      color: AppColor.selectedColor.withOpacity(0.2),
-                                                      borderRadius: BorderRadius.circular(5),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.star,
-                                                          size: 16.r,
-                                                          color: AppColor.selectedColor,
-                                                        ),
-                                                        SizedBox(width: 4.w),
-                                                        SmallText(
-                                                          text: "Rate".tr,
-                                                          color: AppColor.selectedColor,
-                                                          size: 12.sp,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              SizedBox(width: 8.w),
-                                              // Add details button for all bookings
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Get.toNamed(
-                                                    AppRoute.bookingDetails,
-                                                    arguments: {"bookingId": booking.id},
-                                                  );
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey.withOpacity(0.2),
-                                                    borderRadius: BorderRadius.circular(5),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.info_outline,
-                                                        size: 16.r,
-                                                        color: AppColor.backgroundicons,
-                                                      ),
-                                                      SizedBox(width: 4.w),
-                                                      SmallText(
-                                                        text: "Details".tr,
-                                                        color: AppColor.backgroundicons,
-                                                        size: 12.sp,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  // Add other booking details if needed
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Booking ID: #${booking.id}'),
                                   ),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return SizedBox(height: 5.h);
-                            },
-                            itemCount: controller.bookings.length,
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Date: ${booking.day}'),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Time: ${booking.time}'),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: 5.h);
+                      },
+                      itemCount: controller.bookings.length,
+                    ),
                   ),
                 ],
               ),
@@ -274,38 +266,11 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
     );
   }
 
-  Widget _buildInfoRow(String? label, String? value, String? icon) {
-    return Row(
-      children: [
-        if (icon != null) ...[
-          ImageIcon(
-            AssetImage(icon),
-          ),
-          SizedBox(width: Dimensions.width5.w),
-        ],
-        SmallText(
-          text: label ?? '',
-          size: Dimensions.font16.sp,
-        ),
-        SmallText(
-          text: value ?? '',
-          size: 16.sp,
-          color: AppColor.backgroundicons,
-        ),
-      ],
-    );
-  }
-
-  // Build a status indicator
-  // Modify this part inside your _buildStatusIndicator method:
-  // Modify this part inside your _buildStatusIndicator method:
+  // Build a status indicator for booking status
   Widget _buildStatusIndicator(String? approve, {String? imagePath}) {
-    final status = int.tryParse(approve ?? '0') ?? 0; // Default to 0 (Waiting)
-
-    // Check the previous status, default to 0 (Waiting)
+    final status = int.tryParse(approve ?? '0') ?? 0;
     final previousStatus = _previousStatuses[approve] ?? 0;
 
-    // Notify if status changes from 0 (Waiting) to 1 (Accepted) or 2 (Refused)
     if (previousStatus == 0 && status != 0) {
       if (status == 1) {
         _sendNotification('1'); // Booking accepted
@@ -315,7 +280,6 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
       _previousStatuses[approve!] = status; // Update previous status
     }
 
-    // Determine status text and color
     String statusText;
     Color statusColor;
 
@@ -339,8 +303,9 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
   Widget _buildStatus(String status, Color color, String? imagePath) {
     return Container(
       decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(25)),
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(25),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -357,7 +322,10 @@ class _BookingViewState extends State<BookingView> with WidgetsBindingObserver {
           Text(
             status,
             style: TextStyle(
-                color: color, fontWeight: FontWeight.w500, fontSize: 14.sp),
+              color: color,
+              fontWeight: FontWeight.w500,
+              fontSize: 14.sp,
+            ),
           ),
         ],
       ),

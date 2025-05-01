@@ -44,27 +44,52 @@ class ProfileControllerImp extends ProfileController
   }
 
   @override
-  getData() async {
+  void getData() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response = await profileData.postData(id?.toString() ?? '');
-    statusRequest = handlingData(response);
-    if (statusRequest == StatusRequest.success) {
-      if (response['status'] == 'success') {
-        var data = response['profile'] as Map<String, dynamic>;
-        profile = ProfileModel.fromJson(data);
-        favorites = FavoriteModel.fromList(
-            List<Map<String, dynamic>>.from(response['favorites']));
-      } else {
+    try {
+      var response = await profileData.postData(id?.toString() ?? '');
+      print("Response: $response"); // Add logging for response
+      statusRequest = handlingData(response);
+
+      if (statusRequest == StatusRequest.success) {
+        if (response['status'] == 'success') {
+          var data = response['profile'] as Map<String, dynamic>;
+          print("Profile Data: $data"); // Add logging to check profile data
+          profile = ProfileModel.fromJson(data);
+          favorites = FavoriteModel.fromList(
+              List<Map<String, dynamic>>.from(response['favorites']));
+        } else {
+          // Handle case when no data is returned
+          Get.snackbar(
+            'Warning'.tr,
+            'There is no data'.tr,
+            snackPosition: SnackPosition.TOP,
+            colorText: Colors.red,
+          );
+          statusRequest = StatusRequest.failure;
+        }
+      } else if (statusRequest == StatusRequest.serverFailure) {
+        // Handle server failure (500 error) and navigate to login
         Get.snackbar(
-          'Warning'.tr,
-          'There is no data'.tr,
+          'Server Error'.tr,
+          'Something went wrong. Please login again.'.tr,
           snackPosition: SnackPosition.TOP,
           colorText: Colors.red,
         );
-        statusRequest = StatusRequest.failure;
+        Get.offAllNamed(AppRoute.login);
       }
+    } catch (e) {
+      // Handle unexpected errors and navigate to login
+      Get.snackbar(
+        'Error'.tr,
+        'An unexpected error occurred. Please login again.'.tr,
+        snackPosition: SnackPosition.TOP,
+        colorText: Colors.red,
+      );
+      Get.offAllNamed(AppRoute.login);
     }
+
     update();
   }
 
@@ -75,14 +100,14 @@ class ProfileControllerImp extends ProfileController
   }
 
   @override
-  logout() {
+  void logout() {
     Get.offAllNamed(AppRoute.login);
     myServices.sharedPreferences.clear();
     myServices.sharedPreferences.setString('step', '1');
   }
 
   @override
-  deleteAccount() {
+  void deleteAccount() {
     Get.defaultDialog(
       middleText: "Are you sure to delete your account?".tr,
       actions: [

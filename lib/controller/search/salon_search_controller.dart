@@ -5,6 +5,8 @@ import 'package:easycut/data/data_source/remote/rating/rating_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../data/model/searchsalon.dart';
+
 class SalonSearchController extends GetxController {
   // Dependencies
   SalonSearchData salonSearchData = SalonSearchData(Get.find());
@@ -22,6 +24,42 @@ class SalonSearchController extends GetxController {
   String? filterByGender;
 
   // Perform search with API call
+  // Future<void> performSearch(String query) async {
+  //   if (query.isEmpty) {
+  //     searchResults = [];
+  //     update();
+  //     return;
+  //   }
+  //
+  //   isLoading = true;
+  //   update();
+  //
+  //   try {
+  //     var response = await salonSearchData.searchSalons(query);
+  //
+  //     if (response is List) {
+  //       searchResults = response;
+  //
+  //       // Fetch ratings for all salons
+  //       await _fetchSalonRatings();
+  //
+  //       // Apply filters if needed
+  //       _applyFilters();
+  //     } else {
+  //       searchResults = [];
+  //     }
+  //   } catch (e) {
+  //     searchResults = [];
+  //     print("Error searching salons: $e");
+  //   } finally {
+  //     isLoading = false;
+  //     update();
+  //   }
+  // }
+
+  // Clear search
+
+
   Future<void> performSearch(String query) async {
     if (query.isEmpty) {
       searchResults = [];
@@ -36,7 +74,11 @@ class SalonSearchController extends GetxController {
       var response = await salonSearchData.searchSalons(query);
 
       if (response is List) {
-        searchResults = response;
+        // Explicitly cast to List<Map<String, dynamic>> if needed
+        List<Map<String, dynamic>> salonList = List<Map<String, dynamic>>.from(response);
+
+        // Use fromList method to convert the raw response into SearchsalonModel objects
+        searchResults = SearchsalonModel.fromList(salonList);
 
         // Fetch ratings for all salons
         await _fetchSalonRatings();
@@ -55,7 +97,6 @@ class SalonSearchController extends GetxController {
     }
   }
 
-  // Clear search
   void clearSearch() {
     searchController.clear();
     searchResults = [];

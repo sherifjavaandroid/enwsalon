@@ -26,7 +26,7 @@ class EasyCut extends StatelessWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark
           .copyWith(statusBarColor: AppColor.selectedColor // Your desired color
-              ),
+      ),
       child: ScreenUtilInit(
         designSize: const Size(440, 956),
         minTextAdapt: true,

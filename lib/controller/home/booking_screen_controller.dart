@@ -51,8 +51,9 @@ class BookingScreenControllerImp extends GetxController {
     if (userId.isEmpty) return;
 
     try {
+      // New API endpoint based on your provided data
       final response = await http.get(
-        Uri.parse('${AppLink.viewBookings}?userid=$userId'),
+        Uri.parse('https://dashboard.easycuteg.com/api/v1/auth/booking/all?user_id=$userId'),
       );
 
       if (response.statusCode == 200) {
@@ -61,29 +62,26 @@ class BookingScreenControllerImp extends GetxController {
           List<dynamic> bookingData = responseData['data'];
           bookings.clear();
 
+          // Loop through the booking data and create BookingModel instances
           for (var data in bookingData) {
             BookingModel booking = BookingModel.fromJson(data);
             bookings.add(booking);
           }
 
           statusRequest.value =
-              bookings.isEmpty ? StatusRequest.failure : StatusRequest.success;
+          bookings.isEmpty ? StatusRequest.failure : StatusRequest.success;
+
+          print('Bookings fetched successfully: ${bookings.length}');
         } else {
-          if (kDebugMode) {
-            print('The key "data" does not contain bookings.');
-          }
+          print('The key "data" does not contain bookings.');
           statusRequest.value = StatusRequest.loading;
         }
       } else {
-        if (kDebugMode) {
-          print('Failed to fetch bookings: ${response.statusCode}');
-        }
+        print('Failed to fetch bookings: ${response.statusCode}');
         statusRequest.value = StatusRequest.failure;
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error fetching bookings: $e');
-      }
+      print('Error fetching bookings: $e');
       statusRequest.value = StatusRequest.failure;
     }
   }

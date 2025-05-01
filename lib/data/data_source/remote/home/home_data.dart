@@ -6,10 +6,20 @@ class HomeData {
 
   HomeData(this.crud);
 
-  Future<dynamic> viewSalons() async {
-    var response = await crud.getData(
-      AppLink.home,
-    );
+
+  Future<dynamic> viewSalons({
+    double latitude = 0.0,
+    double longitude = 0.0,
+    bool useLocation = false
+  }) async {
+    String url = AppLink.home;
+
+    // If location is enabled, add location parameters
+    if (useLocation && latitude != 0.0 && longitude != 0.0) {
+      url = "${AppLink.home}?lat=$latitude&lng=$longitude";
+    }
+
+    var response = await crud.getData(url);
     return response.fold((l) => l, (r) => r);
   }
 

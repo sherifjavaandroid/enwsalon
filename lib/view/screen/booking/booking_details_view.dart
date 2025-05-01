@@ -91,6 +91,59 @@ class BookingDetailsView extends StatelessWidget {
     );
   }
 
+  Widget _buildSalonCard(dynamic booking) {
+    final salon = booking.salon;
+
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Salon Image
+          Container(
+            height: 150.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12.r),
+                topRight: Radius.circular(12.r),
+              ),
+              image: DecorationImage(
+                image: salon.image != null
+                    ? NetworkImage("${AppLink.imageSalons}${salon.image}")
+                    : const AssetImage('assets/images/salonbk/salon1.jpg') as ImageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+          // Salon Info
+          Padding(
+            padding: EdgeInsets.all(16.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  salon.name ?? 'Unknown Salon', // Display 'Unknown Salon' if the name is null
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8.h),
+                _buildInfoRow(Icons.phone, salon.phone ?? 'N/A'),
+                SizedBox(height: 4.h),
+                _buildInfoRow(Icons.location_on, salon.address ?? 'N/A'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildStatusCard(dynamic booking) {
     String statusText = 'Unknown';
     Color statusColor = Colors.grey;
@@ -173,58 +226,6 @@ class BookingDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _buildSalonCard(dynamic booking) {
-    final salon = booking.salon;
-
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Salon Image
-          Container(
-            height: 150.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12.r),
-                topRight: Radius.circular(12.r),
-              ),
-              image: DecorationImage(
-                image: salon.image != null
-                    ? NetworkImage("${AppLink.imageSalons}${salon.image}")
-                    : const AssetImage('assets/images/salonbk/salon1.jpg') as ImageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-          // Salon Info
-          Padding(
-            padding: EdgeInsets.all(16.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  salon.name ?? 'Unknown Salon',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                _buildInfoRow(Icons.phone, salon.phone ?? 'N/A'),
-                SizedBox(height: 4.h),
-                _buildInfoRow(Icons.location_on, salon.address ?? 'N/A'),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildDetailsCard(dynamic booking) {
     return Card(
@@ -440,6 +441,10 @@ class BookingDetailsView extends StatelessWidget {
     );
   }
 
+// Inside _BookingViewState class, add this method
+
+
+// Helper method to build info rows
   Widget _buildInfoRow(IconData icon, String text) {
     return Row(
       children: [
@@ -457,6 +462,7 @@ class BookingDetailsView extends StatelessWidget {
       ],
     );
   }
+
 
   Widget _buildDetailRow(String label, String value) {
     return Padding(

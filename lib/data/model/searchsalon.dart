@@ -17,34 +17,36 @@ class SearchsalonModel {
   String? createdAt;
   String? updatedAt;
 
-  SearchsalonModel(
-      {this.id,
-      this.name,
-      this.email,
-      this.password,
-      this.gender,
-      this.phone,
-      this.rate,
-      this.chairs,
-      this.categoryId,
-      this.subscription,
-      this.image,
-      this.approve,
-      this.country,
-      this.city,
-      this.address,
-      this.createdAt,
-      this.updatedAt});
+  SearchsalonModel({
+    this.id,
+    this.name,
+    this.email,
+    this.password,
+    this.gender,
+    this.phone,
+    this.rate,
+    this.chairs,
+    this.categoryId,
+    this.subscription,
+    this.image,
+    this.approve,
+    this.country,
+    this.city,
+    this.address,
+    this.createdAt,
+    this.updatedAt,
+  });
 
+  // Ensure that the data from the API is properly handled even if it is missing
   SearchsalonModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
-    name = json["name"];
+    name = json["name"] ?? "Unknown";
     email = json["email"];
     password = json["password"];
     gender = json["gender"];
     phone = json["phone"];
-    rate = json["rate"];
-    chairs = json["chairs"];
+    rate = json["rate"] ?? 0;
+    chairs = json["chairs"] ?? 0;
     categoryId = json["category_id"];
     subscription = json["subscription"];
     image = json["image"];
@@ -56,29 +58,29 @@ class SearchsalonModel {
     updatedAt = json["updated_at"];
   }
 
-  static List<SearchsalonModel> fromList(List<Map<String, dynamic>> list) {
-    return list.map(SearchsalonModel.fromJson).toList();
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data["id"] = id;
+    data["name"] = name;
+    data["email"] = email;
+    data["password"] = password;
+    data["gender"] = gender;
+    data["phone"] = phone;
+    data["rate"] = rate;
+    data["chairs"] = chairs;
+    data["category_id"] = categoryId;
+    data["subscription"] = subscription;
+    data["image"] = image;
+    data["approve"] = approve;
+    data["country"] = country;
+    data["city"] = city;
+    data["address"] = address;
+    data["created_at"] = createdAt;
+    data["updated_at"] = updatedAt;
+    return data;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data["id"] = id;
-    _data["name"] = name;
-    _data["email"] = email;
-    _data["password"] = password;
-    _data["gender"] = gender;
-    _data["phone"] = phone;
-    _data["rate"] = rate;
-    _data["chairs"] = chairs;
-    _data["category_id"] = categoryId;
-    _data["subscription"] = subscription;
-    _data["image"] = image;
-    _data["approve"] = approve;
-    _data["country"] = country;
-    _data["city"] = city;
-    _data["address"] = address;
-    _data["created_at"] = createdAt;
-    _data["updated_at"] = updatedAt;
-    return _data;
+  static List<SearchsalonModel> fromList(List<Map<String, dynamic>> list) {
+    return list.map((map) => SearchsalonModel.fromJson(map)).toList();
   }
 }

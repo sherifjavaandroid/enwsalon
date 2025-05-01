@@ -143,7 +143,7 @@ class _SignUpState extends State<SignUp> {
                       CustomTextFormAuth(
                         myController: controller.email,
                         valid: (val) {
-                          return validEmail(val!);
+
                         },
                         type: TextInputType.emailAddress,
                         hintText: "email".tr,
@@ -441,18 +441,4 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  String? validEmail(String val) {
-    // Regular expression to allow Gmail, Yahoo, and Hotmail addresses
-    RegExp emailRegExp = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@(gmail|yahoo|hotmail)\.com$',
-      caseSensitive: false,
-    );
-
-    if (val.isEmpty) {
-      return 'Email is required'.tr;
-    } else if (!emailRegExp.hasMatch(val)) {
-      return 'Please enter a valid Gmail, Yahoo, or Hotmail address'.tr;
-    }
-    return null;
-  }
 }

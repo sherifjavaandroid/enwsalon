@@ -9,10 +9,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/location_services.dart';
+
 abstract class HomeController extends GetxController {
   void initialData();
   Future<void> getData();
   bool get isLoggedIn;
+  void filterByClassification(String classification);
+  Future<void> refreshSalonsWithLocation();
 }
 
 class HomeControllerImp extends HomeController {
@@ -23,40 +27,62 @@ class HomeControllerImp extends HomeController {
   int? id;
   List<SearchsalonModel> searchResults = [];
 
+  // Classification filter
+  RxString currentClassification = "all".obs;
+  List<SalonModel> _allPopSalons = [];
+  List<SalonModel> _allNearSalons = [];
+  List<SalonModel> _allNewSalons = [];
+
+  // Location services
+  late LocationServices locationServices;
+  var isLocationEnabled = false.obs;
+  var userLatitude = 0.0.obs;
+  var userLongitude = 0.0.obs;
+
   String? name;
   String? gender;
   String? country;
   String? city;
+  String? address;
   String? image;
 
   final HomeData homeData = HomeData(Get.find());
   StatusRequest statusRequest = StatusRequest.success;
-  List<SalonModel> popSalons = [];
-  List<SalonModel> nearSalons = [];
-  List<SalonModel> newSalons = [];
+  List<SalonModel> popSalons = []; // Featured/Popular salons
+  List<SalonModel> nearSalons = []; // Nearby salons
+  List<SalonModel> newSalons = []; // New salons
 
   @override
   void initialData() {
     id = myServices.sharedPreferences.getInt('id');
-
     name = myServices.sharedPreferences.getString('name');
     gender = myServices.sharedPreferences.getString('gender');
     country = myServices.sharedPreferences.getString('country');
     city = myServices.sharedPreferences.getString('city');
     image = myServices.sharedPreferences.getString('image');
+    address = myServices.sharedPreferences.getString('address');
+
+    // Get location data from shared preferences if available
+    userLatitude.value = myServices.sharedPreferences.getDouble('user_latitude') ?? 0.0;
+    userLongitude.value = myServices.sharedPreferences.getDouble('user_longitude') ?? 0.0;
+
+    if (userLatitude.value != 0.0 && userLongitude.value != 0.0) {
+      isLocationEnabled.value = true;
+    }
   }
 
   @override
   Future<void> getData() async {
-    // if (gender == null || country == null || city == null) {
-    //   return;
-    // }
-
     statusRequest = StatusRequest.loading;
     update();
 
     try {
-      var response = await homeData.viewSalons();
+      var response = await homeData.viewSalons(
+          latitude: userLatitude.value,
+          longitude: userLongitude.value,
+          useLocation: isLocationEnabled.value
+      );
+
       if (kDebugMode) {
         print('Response: $response');
       }
@@ -67,20 +93,36 @@ class HomeControllerImp extends HomeController {
 
       if (statusRequest == StatusRequest.success) {
         if (response['status'] == 'success') {
-          nearSalons =
-              (response['nearsalons'] ?? []).map<SalonModel>((element) {
+          // Parse nearby salons
+          _allNearSalons = (response['nearsalons'] ?? []).map<SalonModel>((element) {
             return SalonModel.fromJson(element as Map<String, dynamic>);
           }).toList();
-          popSalons = (response['popsalons'] ?? []).map<SalonModel>((element) {
+
+          // Parse featured/popular salons
+          _allPopSalons = (response['popsalons'] ?? []).map<SalonModel>((element) {
             return SalonModel.fromJson(element as Map<String, dynamic>);
           }).toList();
-          newSalons = (response['newsalons'] ?? []).map<SalonModel>((element) {
+
+          // Parse new salons
+          _allNewSalons = (response['newsalons'] ?? []).map<SalonModel>((element) {
             return SalonModel.fromJson(element as Map<String, dynamic>);
           }).toList();
+
+          // Initialize displayed lists with all salons
+          nearSalons = List.from(_allNearSalons);
+
+          // Sort popular salons by rating to ensure highest rated appear first
+          _allPopSalons.sort((a, b) => (b.rate ?? 0).compareTo(a.rate ?? 0));
+          popSalons = List.from(_allPopSalons);
+
+          newSalons = List.from(_allNewSalons);
+
+          // Make sure to save the top salons to local storage for offline display
+          _saveTopSalonsToLocalStorage();
         } else {
           Get.snackbar(
             'Warning'.tr,
-            'There is no data for your country'.tr,
+            'There is no data for your location'.tr,
             snackPosition: SnackPosition.TOP,
             colorText: Colors.red,
           );
@@ -98,9 +140,66 @@ class HomeControllerImp extends HomeController {
       if (kDebugMode) {
         print("Error fetching salons: $e");
       }
+
+      // Try to load cached salons data
+      _loadCachedSalonsData();
     } finally {
       update();
     }
+  }
+
+  // Save top salons to local storage for offline access
+  void _saveTopSalonsToLocalStorage() {
+    // Implementation would depend on the caching strategy
+    // This is a placeholder for the actual implementation
+    if (kDebugMode) {
+      print("Saving ${popSalons.length} featured salons to local storage");
+    }
+  }
+
+  // Load cached salons data when network request fails
+  void _loadCachedSalonsData() {
+    // Implementation would depend on the caching strategy
+    // This is a placeholder for the actual implementation
+    if (kDebugMode) {
+      print("Attempting to load cached salons data");
+    }
+  }
+
+  @override
+  Future<void> refreshSalonsWithLocation() async {
+    // Update location data
+    if (locationServices.currentPosition.value != null) {
+      userLatitude.value = locationServices.currentPosition.value!.latitude;
+      userLongitude.value = locationServices.currentPosition.value!.longitude;
+
+      country = locationServices.country.value;
+      city = locationServices.city.value;
+      address = locationServices.address.value;
+
+      isLocationEnabled.value = true;
+
+      // Reload data with new location
+      await getData();
+    }
+  }
+
+  @override
+  void filterByClassification(String classification) {
+    currentClassification.value = classification;
+
+    if (classification == "all") {
+      // Reset to show all salons
+      nearSalons = List.from(_allNearSalons);
+      popSalons = List.from(_allPopSalons);
+      newSalons = List.from(_allNewSalons);
+    } else {
+      // Filter salons by classification
+      nearSalons = _allNearSalons.where((salon) => salon.classification == classification).toList();
+      popSalons = _allPopSalons.where((salon) => salon.classification == classification).toList();
+      newSalons = _allNewSalons.where((salon) => salon.classification == classification).toList();
+    }
+    update();
   }
 
   Future<void> fetchRating(int salonId) async {
@@ -131,7 +230,11 @@ class HomeControllerImp extends HomeController {
     update();
 
     try {
-      var response = await homeData.searchSalon(search, id!);
+      var response = await homeData.searchSalon(
+          search,
+          id ?? 0,
+
+      );
 
       if (kDebugMode) {
         print('Response: $response');
@@ -143,6 +246,13 @@ class HomeControllerImp extends HomeController {
         searchResults = response
             .map((e) => SearchsalonModel.fromJson(e as Map<String, dynamic>))
             .toList();
+
+        // Filter search results if a classification is selected
+        // if (currentClassification.value != "all") {
+        //   searchResults = searchResults.where((salon) =>
+        //   salon.classification == currentClassification.value).toList();
+        // }
+
         statusRequest = searchResults.isNotEmpty
             ? StatusRequest.success
             : StatusRequest.failure;
@@ -176,6 +286,7 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() {
+    locationServices = Get.put(LocationServices());
     initialData();
     getData();
     super.onInit();

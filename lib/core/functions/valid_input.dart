@@ -27,7 +27,5 @@ validInput(String val, int min, int max, String type) {
     return "${"cantBeLessThan".tr} $min";
   }
 
-  if (val.length > max) {
-    return "${"cantBeGreaterThan".tr} $max";
-  }
+
 }

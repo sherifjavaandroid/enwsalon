@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:easycut/linkapi.dart';
+
+import '../../../core/location_services.dart';
+
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
@@ -17,11 +20,15 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.lazyPut(() => ProfileControllerImp());
 
+    // Fetch location data
+    LocationServices locationServices = Get.find();
+    locationServices.getCurrentPosition(); // Ensure position is updated
+
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pushNamedAndRemoveUntil(
           AppRoute.home,
-          (Route<dynamic> route) => false,
+              (Route<dynamic> route) => false,
         );
         return false;
       },
@@ -35,26 +42,28 @@ class ProfileView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Find the CartProfile widget in profile.dart
+
                     CartProfile(
-                      userName: controller.profile.name ?? "",
+                      userName: controller.profile.name ?? "No Name", // Fallback if name is missing
                       userImage: controller.profile.image != null
                           ? '${AppLink.imageUsers}${controller.profile.image}'
-                          : "assets/images/icon/user.png",
+                          : "assets/images/icon/user.png", // Fallback image
                       userEmail: controller.profile.email ?? "",
                       logout: () {
                         controller.logout();
                       },
-                      // Add this parameter to enable editing profile
                       onEditPressed: () {
                         Get.toNamed(AppRoute.profileUpdate);
                       },
                     ),
+                    SizedBox(height: Dimensions.height15),
+
+                    // Country TextField
+
 
                     SizedBox(height: Dimensions.height15),
 
-                    // Custom Tabs
-
+                    // Custom Tabs for About and Favorites
                     Container(
                       width: double.infinity,
                       height: 41,
@@ -114,24 +123,6 @@ class ProfileView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          // Row(
-                          //   children: [
-                          //     GestureDetector(
-                          //       onTap: () {
-                          //         controller.deleteAccount();
-                          //       },
-                          //       child: BigText(
-                          //         text: "Delete Account".tr,
-                          //         color: Colors.red,
-                          //         size: Dimensions.font20,
-                          //       ),
-                          //     ),
-                          //     SizedBox(width: 120.w),
-                          //     const LanguageSwitcher(),
-                          //   ],
-                          // ),
-
-//Adding LanguageSwitcher for language change
                         ],
                       ),
                     ),

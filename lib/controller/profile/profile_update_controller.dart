@@ -5,6 +5,8 @@ import 'package:easycut/data/data_source/remote/profile/profile_update_data.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/constant/routes.dart';
+
 class ProfileUpdateController extends GetxController {
   GlobalKey<FormState> formState = GlobalKey<FormState>();
   late TextEditingController nameController;
@@ -26,7 +28,12 @@ class ProfileUpdateController extends GetxController {
     isShowPassword = !isShowPassword;
     update();
   }
-
+  @override
+  void logout() {
+    Get.offAllNamed(AppRoute.login);
+    myServices.sharedPreferences.clear();
+    myServices.sharedPreferences.setString('step', '1');
+  }
   // Update profile information
   Future<void> updateProfile() async {
     if (formState.currentState!.validate()) {
@@ -62,6 +69,7 @@ class ProfileUpdateController extends GetxController {
           password: passwordController.text.isNotEmpty ? passwordController.text : null,
         );
 
+        // Handle response status and message
         statusRequest = handlingData(response);
 
         if (statusRequest == StatusRequest.success) {
@@ -91,6 +99,13 @@ class ProfileUpdateController extends GetxController {
             );
             statusRequest = StatusRequest.failure;
           }
+        } else {
+          Get.snackbar(
+            "Error".tr,
+            "An error occurred while updating profile".tr,
+            colorText: Colors.red,
+          );
+          statusRequest = StatusRequest.failure;
         }
       } catch (e) {
         Get.snackbar(
