@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="278d9014-9b66-4bba-b02c-1dc34ffae386" name="Changes" comment="fix search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/screen/main/salon_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/main/salon_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/booking.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/booking.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/screen/home/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/screen/home/profile.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +114,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746132057827</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix search">
+      <option name="closed" value="true" />
+      <created>1746132750057</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746132750057</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
